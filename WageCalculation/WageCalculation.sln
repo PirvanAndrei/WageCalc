@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WageCalculation", "WageCalculation\WageCalculation.csproj", "{694242D1-7903-4139-AC01-49C156B50182}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WageCalculation.Tests", "WageCalculation.Tests\WageCalculation.Tests.csproj", "{734F065A-FF71-4831-BBD0-9355B13781F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{694242D1-7903-4139-AC01-49C156B50182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{694242D1-7903-4139-AC01-49C156B50182}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{694242D1-7903-4139-AC01-49C156B50182}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{694242D1-7903-4139-AC01-49C156B50182}.Release|Any CPU.Build.0 = Release|Any CPU
+		{734F065A-FF71-4831-BBD0-9355B13781F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{734F065A-FF71-4831-BBD0-9355B13781F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{734F065A-FF71-4831-BBD0-9355B13781F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{734F065A-FF71-4831-BBD0-9355B13781F7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

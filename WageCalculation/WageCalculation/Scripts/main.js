@@ -75,7 +75,7 @@ function addRow(row) {
 }
 
 function deleteRow(row) {
-    console.log("Delete");
+    $(table).find(row).remove();
 }
 
 /**

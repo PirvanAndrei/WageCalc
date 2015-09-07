@@ -1,5 +1,8 @@
 ﻿var target, table_container, table, settings_container, result_container;
-var rowHtml = "<tr class='hours-row'><td class='col1'><input type='text' class='form-control' /></td><td class='col2'><input type='text' class='form-control' /></td><td class='col3'></td></tr>";
+var rowHtml = "<tr class='hours-row'>" +
+              "<td class='col1'><div class='form-group'><input class='time-input form-control' type='text' class='form-control' placeholder='Example: 9:00' /></div></td>" +
+              "<td class='col2'><div class='form-group'><input class='time-input form-control' type='text' class='form-control' placeholder='Example: 17:00' /></div></td>" +
+              "<td class='col3'></td></tr>";
 
 
 $(document).ready(function () {
@@ -28,7 +31,7 @@ $(document).ready(function () {
  * Removes any content of the div before add the table.
  */
 function initTable() {
-    table_container.html("<table class='hours-table table table-hover'>" +
+    table_container.html("<table class='hours-table table table-hover table-condensed'>" +
                             "<thead><tr>" +
                                 "<th class='column-1'>Start time</th>" +
                                 "<th class='column-2'>End time</th>" +
@@ -69,6 +72,7 @@ function addRow(row) {
 
 function deleteRow(row) {
     $(table).find(row).remove();
+    updateRows(table);
 }
 
 /**
@@ -83,8 +87,15 @@ function updateRows(table) {
     var rows = $(table).find('.hours-row');
     rows.each(function (index, row) {
         $(this).attr('id', index + 1);
+        $(this).find('.col1 input').attr('tabindex', (index + 1) * 2 - 1);
+        $(this).find('.col2 input').attr('tabindex', (index + 1) * 2);
         assignButtonsToRow(table, row);
     });
+    // Update tabindices for wage, tax and calculate-btn
+    $('#wage').attr('tabindex', rows.length * 2 + 1);
+    $('#tax').attr('tabindex', rows.length * 2 + 2);
+    $('.calculate-btn').attr('tabindex', rows.length * 2 + 3);
+
 }
 
 function getRowPosition(row) {
@@ -96,34 +107,114 @@ function getRowCount(table) {
 }
 
 function assignButtonsToRow(table, row) {
-    var deleteBtn = "<button class='delete-btn btn btn-danger'>Delete row</button>";
-    var addBtn = "<button class='add-btn btn btn-success'>Add row</button>";
+    var btnGroupStart = "<div class='btn-group row-buttons' role='group'>"
+    var deleteBtn = " <button type='button' class='delete-btn btn btn-danger'>Delete</button>";
+    var addBtn = "<button type='button' class='add-btn btn btn-success'>Add</button>";
+    var btnGroupEnd = "</div>";
 
     var position = +$(row).attr('id');
     var rowCount = +getRowCount(table);
 
+    var html = rowCount > 1 ? btnGroupStart + addBtn + deleteBtn + btnGroupEnd : btnGroupStart + addBtn + btnGroupEnd;
+
     var buttonColumn = $(row).find('.col3');
 
-    buttonColumn.html(addBtn);
+    buttonColumn.html(html);
     buttonColumn.find('.add-btn').click(function (event) {
         addRow(row);
     });
-    if (position > 1) {
-        buttonColumn.append(deleteBtn);
+    if (rowCount > 1) {
         buttonColumn.find('.delete-btn').click(function (event) {
             deleteRow(row);
         });
-    } 
+    }
+
 
 }
 
 function initSettings() {
-    var wageHtml = '<div class="form-group"><label for="wage">Wage:</label><input type="number" id="wage" class="form-control" /></div>';
-    var taxHtml = '<div class="form-group"><label for="tax">Tax (%):</label><input type="number" id="tax" class="form-control" /></div>';
-    settings_container.html(wageHtml + taxHtml);
+    var wageHtml = '<div class="form-group"><label for="wage">Wage:</label><input type="number" id="wage" class="form-control" value=0 tabindex="98" /></div>';
+    var taxHtml = '<div class="form-group"><label for="tax">Tax (%):</label><input type="number" id="tax" class="form-control" value=0 tabindex="99" /></div>';
+    var submitBtnHtml = '<button class="calculate-btn btn btn-lg btn-block btn-primary" tabindex="100">Calculate</button><br>';
+    settings_container.html(wageHtml + taxHtml + submitBtnHtml);
+
+    $('.calculate-btn').click(function (event) {
+        event.preventDefault();
+        calculate();
+    });
 }
 
 function initResults() {
+    var validationHtml = '<div class="alert alert-warning"></div>';
     var hoursTotalHtml = '<h2 class="hours-total">Hours total: <span class="hours-and-minutes">x hours, y minutes</span> (<span class="hours-only">x,z hours</span>)</h2>';
-    result_container.html(hoursTotalHtml);
+    var beforeTaxHtml = '<h2 class="income-before">Income before tax: <span class="income-number">xx.yyy</span></h2>'
+    var afterTaxHtml = '<h2 class="income-after">Income after tax: <span class="income-number">xx.yyy</span></h2>';
+    result_container.html(validationHtml + hoursTotalHtml + beforeTaxHtml + afterTaxHtml);
+}
+
+function calculate() {
+    var valid = validateInputs();
+    if (valid) {
+        // Send parameters with AJAX to server
+    }
+}
+
+function validateInputs() {
+    var timeInputs = $(table).find('.time-input');
+
+    timeInputs.each(function (index, inputField) {
+        var time = $(inputField).val();
+        var formGrp = $(inputField).parent('.form-group');
+        if (validateTime(time)) {
+            formGrp.addClass('has-success');
+            formGrp.removeClass('has-error');
+        } else {
+            formGrp.addClass('has-error');
+            formGrp.removeClass('has-success');
+        }
+        
+    });
+
+    var wageInput = $('#wage');
+    var wageValid = validateWage(wageInput.val());
+    var wageFormGrp = $(wageInput).parent('.form-group');
+    if (wageValid) {
+        wageFormGrp.addClass('has-success');
+        wageFormGrp.removeClass('has-error');
+    } else {
+        wageFormGrp.addClass('has-error');
+        wageFormGrp.removeClass('has-success');
+    }
+
+    var taxInput = $('#tax');
+    var taxValid = validateTax(taxInput.val());
+    var taxFormGrp = $(taxInput).parent('.form-group');
+    if (taxValid) {
+        taxFormGrp.addClass('has-success');
+        taxFormGrp.removeClass('has-error');
+    } else {
+        taxFormGrp.addClass('has-error');
+        taxFormGrp.removeClass('has-success');
+    }
+}
+
+function validateTime(time) {
+    var split = time.split(':');
+    if (split.length = 2) {
+        var hours = split[0];
+        var mins = split[1];
+
+        if (!isNaN(hours) && (hours >= 0 || hours <= 23)) {
+            return (!isNaN(mins) && (mins >= 0 || mins <= 59));
+        } 
+    }
+    return false;
+}
+
+function validateWage(wage) {
+    return (!isNaN(wage) && wage > 0);
+}
+
+function validateTax(tax) {
+    return (!isNaN(tax) && (tax >= 0 || tax <= 100));
 }

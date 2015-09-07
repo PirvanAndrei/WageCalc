@@ -13,8 +13,9 @@ $(document).ready(function () {
 
     result_container = $('#result-container');
 
-    initTable("Start time", "End time");
+    initTable();
     initSettings();
+    initResults();
 
 
 
@@ -120,4 +121,9 @@ function initSettings() {
     var wageHtml = '<div class="form-group"><label for="wage">Wage:</label><input type="number" id="wage" class="form-control" /></div>';
     var taxHtml = '<div class="form-group"><label for="tax">Tax (%):</label><input type="number" id="tax" class="form-control" /></div>';
     settings_container.html(wageHtml + taxHtml);
+}
+
+function initResults() {
+    var hoursTotalHtml = '<h2 class="hours-total">Hours total: <span class="hours-and-minutes">x hours, y minutes</span> (<span class="hours-only">x,z hours</span>)</h2>';
+    result_container.html(hoursTotalHtml);
 }

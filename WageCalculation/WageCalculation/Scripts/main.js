@@ -1,4 +1,5 @@
 ﻿var target, table_container, table, settings_container, result_container;
+var rowHtml = "<tr class='hours-row'><td class='col1'><input type='text' class='form-control' /></td><td class='col2'><input type='text' class='form-control' /></td><td class='col3'></td></tr>";
 
 
 $(document).ready(function () {
@@ -13,10 +14,7 @@ $(document).ready(function () {
     result_container = $('#result-container');
 
     initTable("Start time", "End time");
-
-
-
-
+    initSettings();
 
 
 
@@ -24,23 +22,19 @@ $(document).ready(function () {
 
 
 /**
- * Adds a table with header and empty body to the #table-container div.
+ * Adds a table with header and body with a single row to the #table-container div.
  * The header contains the names of the first two columns, defined by varables col1 and col2.
  * Removes any content of the div before add the table.
  */
-function initTable(col1, col2) {
-    col1 = col1 ? col1 : "Start";
-    col2 = col2 ? col2 : "End";
-
-
+function initTable() {
     table_container.html("<table class='hours-table table table-hover'>" +
                             "<thead><tr>" +
-                                "<th class='column-1'>" + col1 + "</th>" +
-                                "<th class='column-2'>" + col2 + "</th>" +
+                                "<th class='column-1'>Start time</th>" +
+                                "<th class='column-2'>End time</th>" +
                                 "<th class='column-3'></th>" +
                             "</tr></thead>" +
                             "<tbody>" +
-                            "<tr class='hours-row'><td class='col1'><input type='text' /></td><td class='col2'><input type='text' /></td><td class='col3'></td></tr>" +
+                                rowHtml +
                             "</tbody>" +
                          "</table>");
 
@@ -66,8 +60,6 @@ function initTable(col1, col2) {
 function addRow(row) {
     if (!table)
         initTable();
-
-    var rowHtml = "<tr class='hours-row'><td class='col1'><input type='text' /></td><td class='col2'><input type='text' /></td><td class='col3'></td></tr>";
 
     $(row).after(rowHtml);
     updateRows(table);
@@ -122,4 +114,10 @@ function assignButtonsToRow(table, row) {
         });
     } 
 
+}
+
+function initSettings() {
+    var wageHtml = '<div class="form-group"><label for="wage">Wage:</label><input type="number" id="wage" class="form-control" /></div>';
+    var taxHtml = '<div class="form-group"><label for="tax">Tax (%):</label><input type="number" id="tax" class="form-control" /></div>';
+    settings_container.html(wageHtml + taxHtml);
 }

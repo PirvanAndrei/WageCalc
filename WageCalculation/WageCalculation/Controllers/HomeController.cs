@@ -13,6 +13,11 @@ namespace WageCalculation.Controllers
             return View();
         }
 
+        public ActionResult Qunit()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

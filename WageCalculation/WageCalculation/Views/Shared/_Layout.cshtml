@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WageCalculator</title>
     @Styles.Render("~/Content/css")
+    <link rel="stylesheet" type="text/css" href="~/Content/qunit.css" />
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
@@ -35,7 +36,9 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript" src="~/Scripts/qunit.js"></script>
     <script type="text/javascript" src="~/Scripts/main.js"></script>
+    <script type="text/javascript" src="~/Scripts/maintests.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

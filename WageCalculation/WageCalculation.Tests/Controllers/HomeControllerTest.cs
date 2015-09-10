@@ -23,6 +23,21 @@ namespace WageCalculation.Tests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual("Quite possibly the best thing since sliced bread...", result.ViewBag.Message);
+           
+        }
+
+        [TestMethod]
+        public void Qunit()
+        {
+            // Arrange
+            HomeController controller = new HomeController();
+
+            // Act
+            ViewResult result = controller.Qunit() as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]

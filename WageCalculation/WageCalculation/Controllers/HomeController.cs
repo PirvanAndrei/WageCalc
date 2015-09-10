@@ -10,6 +10,8 @@ namespace WageCalculation.Controllers
     {
         public ActionResult Index()
         {
+
+            ViewBag.Message = "Quite possibly the best thing since sliced bread...";
             return View();
         }
 

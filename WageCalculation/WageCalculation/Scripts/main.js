@@ -62,12 +62,8 @@ function initTable() {
  * 
  */
 function addRow(row) {
-    if (!table)
-        initTable();
-
     $(row).after(rowHtml);
     updateRows(table);
-
 }
 
 function deleteRow(row) {

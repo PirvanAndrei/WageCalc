@@ -1,2 +1,13 @@
-﻿<div id="qunit"></div>
+﻿<div id="target" class="col-xs-12 col-md-8 col-md-offset-2" style="display: none">
+    <form role="form">
+        <div id="table-container"></div>
+        <div id="settings-container"></div>
+        <div id="result-container"></div>
+    </form>
+</div>
+<div id="qunit"></div>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+<script type="text/javascript" src="~/Scripts/qunit.js"></script>
+<script type="text/javascript" src="~/Scripts/main.js"></script>
 <script type="text/javascript" src="~/Scripts/maintests.js"></script>

@@ -153,9 +153,22 @@ function initResults() {
 }
 
 function calculate() {
+    console.log("calc");
     var valid = validateInputs();
-    if (valid) {
+    if (!valid) {
         // Send parameters with AJAX to server
+        console.log("about to send ajax");
+        $.ajax({
+            type: "POST",
+            url: "Home/Calculate",
+            data: {
+                hours: "blablabla"
+            },
+            success: function (data) {
+                console.log(data);
+            },
+            dataType: "json"
+        });
     }
 }
 

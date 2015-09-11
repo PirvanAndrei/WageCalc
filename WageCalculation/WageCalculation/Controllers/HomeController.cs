@@ -20,6 +20,15 @@ namespace WageCalculation.Controllers
             return View();
         }
 
+        [HttpPost]
+        public JsonResult Calculate()
+        {
+
+            string hours = HttpContext.Request["hours"];
+            string json = "{hours: "+hours+"}";
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

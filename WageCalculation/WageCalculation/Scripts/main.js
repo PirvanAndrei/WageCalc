@@ -152,15 +152,32 @@ function calculate() {
     console.log("calc");
     var valid = validateInputs();
     if (valid) {
+
+        var hours = '';
+        // Grab all rows 
+        $(table).find('.hours-row').each(function(index, row) {
+            var start = $(row).find('.col1 .time-input').val();
+            var end = $(row).find('.col2 .time-input').val();
+            hours += start + "+" + end + ";"; // Append time input to string of hours
+        });
+        hours = hours.slice(0, -1); // Remove trailing semi-colon (;)
+
+        // Grab wage and tax
+        var wage = $('#wage').val();
+        var tax = $('#tax').val();
+
         // Send parameters with AJAX to server
         console.log("about to send ajax");
+        console.log(hours);
+        console.log(wage);
+        console.log(tax);
         $.ajax({
             type: "POST",
             url: "Home/Calculate",
             data: {
-                hours: "12:00+17:00;9:00+18:00",
-                wage: "200",
-                tax: 35
+                hours: hours,
+                wage: wage,
+                tax: tax
             },
             success: function (data) {
                 console.log(data);

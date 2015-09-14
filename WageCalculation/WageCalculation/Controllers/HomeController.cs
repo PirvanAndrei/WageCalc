@@ -35,7 +35,7 @@ namespace WageCalculation.Controllers
             //new json string totalHours: xxxx incomeBeforeTax: xxxx IncomeAfterTax: xxxx
             var result = new JObject();
 
-            result["totalHours"] = model.totalHours(hours);
+            result["totalHours"] = model.parseIntoDouble(model.totalHours(hours));
             result["incomeBeforeTax"] = model.incomeBeforeTax(wage, hours);
             result["incomeAfterTax"] = model.incomeAfterTax(wage, hours, tax);
 

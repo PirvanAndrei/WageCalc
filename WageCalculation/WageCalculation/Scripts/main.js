@@ -10,10 +10,7 @@ $(document).ready(function () {
     target = $('#target');
 
     table_container = $('#table-container');
-    table;
-
     settings_container = $('#settings-container');
-
     result_container = $('#result-container');
 
     initTable();
@@ -103,12 +100,11 @@ function getRowCount(table) {
 }
 
 function assignButtonsToRow(table, row) {
-    var btnGroupStart = "<div class='btn-group row-buttons' role='group'>"
+    var btnGroupStart = "<div class='btn-group row-buttons' role='group'>";
     var deleteBtn = " <button type='button' class='delete-btn btn btn-danger'>Delete</button>";
     var addBtn = "<button type='button' class='add-btn btn btn-success'>Add</button>";
     var btnGroupEnd = "</div>";
 
-    var position = +$(row).attr('id');
     var rowCount = +getRowCount(table);
 
     var html = rowCount > 1 ? btnGroupStart + addBtn + deleteBtn + btnGroupEnd : btnGroupStart + addBtn + btnGroupEnd;
@@ -116,11 +112,11 @@ function assignButtonsToRow(table, row) {
     var buttonColumn = $(row).find('.col3');
 
     buttonColumn.html(html);
-    buttonColumn.find('.add-btn').click(function (event) {
+    buttonColumn.find('.add-btn').click(function () {
         addRow(row);
     });
     if (rowCount > 1) {
-        buttonColumn.find('.delete-btn').click(function (event) {
+        buttonColumn.find('.delete-btn').click(function () {
             deleteRow(row);
         });
     }
@@ -143,18 +139,17 @@ function initSettings() {
 function initResults() {
     var validationHtml = '<div class="alert alert-warning"></div>';
     var hoursTotalHtml = '<h2 class="hours-total">Hours total: <span class="hours-and-minutes">x hours, y minutes</span> (<span class="hours-only">x,z hours</span>)</h2>';
-    var beforeTaxHtml = '<h2 class="income-before">Income before tax: <span class="income-number">xx.yyy</span></h2>'
+    var beforeTaxHtml = '<h2 class="income-before">Income before tax: <span class="income-number">xx.yyy</span></h2>';
     var afterTaxHtml = '<h2 class="income-after">Income after tax: <span class="income-number">xx.yyy</span></h2>';
     result_container.hide();
     result_container.html(validationHtml + hoursTotalHtml + beforeTaxHtml + afterTaxHtml);
 }
 
 function calculate() {
-    console.log("calc");
     var valid = validateInputs();
     if (valid) {
 
-        var hours = '';
+        var hours = "";
         // Grab all rows 
         $(table).find('.hours-row').each(function(index, row) {
             var start = $(row).find('.col1 .time-input').val();
@@ -168,13 +163,9 @@ function calculate() {
         var tax = $('#tax').val();
 
         // Send parameters with AJAX to server
-        console.log("about to send ajax");
-        console.log(hours);
-        console.log(wage);
-        console.log(tax);
         $.ajax({
             type: "POST",
-            url: "Home/Calculate",
+            url: "/Home/Calculate",
             data: {
                 hours: hours,
                 wage: wage,
@@ -183,8 +174,7 @@ function calculate() {
             success: function (data) {
                 displayResults(JSON.parse(data));
             },
-            dataType: "json",
-            //contentType: "application/json"
+            dataType: "json"
         });
     }
 }
@@ -194,7 +184,7 @@ function displayResults(data) {
     var hours = 0;
     var mins = 0;
     var split = data.totalHoursTime.split(':');
-    if (split.length = 2) {
+    if (split.length === 2) {
         hours = split[0];
         mins = split[1];
     }
@@ -258,22 +248,30 @@ function validateInputs() {
 }
 
 function validateTime(time) {
-    var split = time.split(':');
-    if (split.length = 2) {
+    var split = time.split(":");
+    if (split.length === 2) {
         var hours = split[0];
         var mins = split[1];
 
-        if (!isNaN(hours) && (hours >= 0 || hours <= 23)) {
-            return (!isNaN(mins) && (mins >= 0 || mins <= 59));
+        if (!isNaN(hours) && (hours >= 0 && hours <= 23) && (hours.length > 0)) {
+            return (!isNaN(mins) && (mins >= 0 && mins <= 59) && mins.length > 0);
         } 
     }
     return false;
 }
 
 function validateWage(wage) {
+    if (wage.indexOf(",") > 0) {
+        wage = wage.replace(",", ".");
+    }
+
     return (!isNaN(wage) && wage > 0);
 }
 
 function validateTax(tax) {
-    return (!isNaN(tax) && (tax >= 0 || tax <= 100));
+    if (tax.indexOf(",") > 0) {
+        tax = tax.replace(",", ".");
+    }
+
+    return (!isNaN(tax) && (tax >= 0 && tax <= 100) && tax.length > 0);
 }

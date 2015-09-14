@@ -70,6 +70,7 @@ namespace WageCalculation.Models
 
         public string totalHours(string time)
         {
+            
             var Days = time.Split(';');
 
             int hours = 0;
@@ -87,7 +88,7 @@ namespace WageCalculation.Models
                 time = hours + ":0" + minutes;
             }
             else
-                time = hours + ":" + minutes;
+            time = hours + ":" + minutes;
 
             return time;
         }

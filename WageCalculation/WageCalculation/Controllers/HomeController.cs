@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WageCalculation.Models;
-
 namespace WageCalculation.Controllers
 {
     public class HomeController : Controller
@@ -32,12 +31,7 @@ namespace WageCalculation.Controllers
             //calculations
 
             //new json string totalHours: xxxx incomeBeforeTax: xxxx IncomeAfterTax: xxxx
-            //string json = "totalHours:" + model.totalHours(hours) + "incomeBeforeTax:" + model.incomeBeforeTax(wage, hours) + "incomeAfterTax:" + model.incomeAfterTax(wage, hours, tax);
-            string[] result = { model.totalHours(hours), model.incomeBeforeTax(wage, hours), model.incomeAfterTax(wage, hours, tax)};
-
-            var jsonSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            string json = jsonSerializer.Serialize(result);
-
+            string json = "totalHours:" + model.totalHours(hours) + "incomeBeforeTax:" + model.incomeBeforeTax(wage, hours) + "incomeAfterTax:" + model.incomeAfterTax(wage, hours, tax);
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 

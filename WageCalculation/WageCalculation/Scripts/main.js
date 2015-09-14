@@ -145,6 +145,7 @@ function initResults() {
     var hoursTotalHtml = '<h2 class="hours-total">Hours total: <span class="hours-and-minutes">x hours, y minutes</span> (<span class="hours-only">x,z hours</span>)</h2>';
     var beforeTaxHtml = '<h2 class="income-before">Income before tax: <span class="income-number">xx.yyy</span></h2>'
     var afterTaxHtml = '<h2 class="income-after">Income after tax: <span class="income-number">xx.yyy</span></h2>';
+    result_container.hide();
     result_container.html(validationHtml + hoursTotalHtml + beforeTaxHtml + afterTaxHtml);
 }
 
@@ -180,11 +181,34 @@ function calculate() {
                 tax: tax
             },
             success: function (data) {
-                console.log(data);
+                displayResults(JSON.parse(data));
             },
-            dataType: "json"
+            dataType: "json",
+            //contentType: "application/json"
         });
     }
+}
+
+function displayResults(data) {
+    console.log(data);
+    var hours = 0;
+    var mins = 0;
+    var split = data.totalHoursTime.split(':');
+    if (split.length = 2) {
+        hours = split[0];
+        mins = split[1];
+    }
+    var hoursAndMinutes = hours + " hours, "+mins+" minutes";
+    var hoursOnly = data.totalHoursDouble.toFixed(2) + " hours";
+    var beforeTax = parseFloat(data.incomeBeforeTax).toFixed(2);
+    var afterTax = parseFloat(data.incomeAfterTax).toFixed(2);
+
+    $('.hours-and-minutes').text(hoursAndMinutes);
+    $('.hours-only').text(hoursOnly);
+    $('.income-before .income-number').text(beforeTax);
+    $('.income-after .income-number').text(afterTax);
+
+    result_container.slideDown("slow");
 }
 
 function validateInputs() {

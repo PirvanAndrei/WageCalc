@@ -81,8 +81,13 @@ namespace WageCalculation.Models
 
             hours = hours + (int)(minutes / 60);
             minutes = (int)(minutes % 60);
-
+            if (minutes < 10)
+            {
+                time = hours + ":0" + minutes;
+            }
+            else
             time = hours + ":" + minutes;
+
             return time;
         }
 

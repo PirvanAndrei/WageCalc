@@ -188,9 +188,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CodeCoverageGenerationTool.exe" />
-    <Content Include="CodeCoverageGenerationTool.pdb" />
-    <Content Include="CodeCoverageGenerationTool.vshost.exe" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\qunit.css" />
@@ -200,10 +197,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="CodeCoverageGenerationTool.vshost.exe.manifest" />
-    <Content Include="CodeCoverageGenerationTool.vshost.exe.config" />
-    <Content Include="CodeCoverageGenerationTool.exe.config" />
-    <None Include="Properties\PublishProfiles\Wagecalculator %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Wagecalculator.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -220,30 +213,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Thirdparties.html" />
-    <Content Include="Tools\OpenCover\Autofac.Configuration.dll" />
-    <Content Include="Tools\OpenCover\Autofac.dll" />
-    <Content Include="Tools\OpenCover\Gendarme.Framework.dll" />
-    <Content Include="Tools\OpenCover\Gendarme.Rules.Maintainability.dll" />
-    <Content Include="Tools\OpenCover\log4net.dll" />
-    <Content Include="Tools\OpenCover\Mono.Cecil.dll" />
-    <Content Include="Tools\OpenCover\Mono.Cecil.Mdb.dll" />
-    <Content Include="Tools\OpenCover\Mono.Cecil.Pdb.dll" />
-    <Content Include="Tools\OpenCover\OpenCover.Console.exe" />
-    <Content Include="Tools\OpenCover\OpenCover.Console.pdb" />
-    <Content Include="Tools\OpenCover\OpenCover.Extensions.dll" />
-    <Content Include="Tools\OpenCover\OpenCover.Extensions.pdb" />
-    <Content Include="Tools\OpenCover\OpenCover.Framework.dll" />
-    <Content Include="Tools\OpenCover\OpenCover.Framework.pdb" />
-    <Content Include="Tools\OpenCover\x64\OpenCover.Profiler.dll" />
-    <Content Include="Tools\OpenCover\x86\OpenCover.Profiler.dll" />
-    <Content Include="Tools\ReportGenerator\ICSharpCode.NRefactory.CSharp.dll" />
-    <Content Include="Tools\ReportGenerator\ICSharpCode.NRefactory.dll" />
-    <Content Include="Tools\ReportGenerator\log4net.dll" />
-    <Content Include="Tools\ReportGenerator\ReportGenerator.exe" />
-    <Content Include="Tools\ReportGenerator\ReportGenerator.Reporting.dll" />
-    <Content Include="Tools\ReportGenerator\ReportGenerator.Reporting.XML" />
-    <Content Include="Tools\ReportGenerator\ReportGenerator.XML" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -279,8 +248,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Qunit.cshtml" />
-    <Content Include="Tools\OpenCover\OpenCover.Console.exe.config" />
-    <Content Include="Tools\OpenCover\log4net.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

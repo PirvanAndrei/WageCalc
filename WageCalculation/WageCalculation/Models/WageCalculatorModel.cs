@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Globalization;
+using System.Threading;
 
 namespace WageCalculation.Models
 {
@@ -13,6 +15,8 @@ namespace WageCalculation.Models
 
         public String incomeAfterTax(String wage, String time, String tax)
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
             double income = 0.000;
             double taxPercent = 0.00;
 
@@ -35,11 +39,12 @@ namespace WageCalculation.Models
         
         public String incomeBeforeTax(String wage, String time)
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             double income = 0.000;
 
             if (wage.Contains(','))
             {
-               wage =  wage.Replace(',', '.');
+                wage = wage.Replace(',', '.');
             }
 
             income = double.Parse(wage) * parseIntoDouble(time);

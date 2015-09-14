@@ -158,7 +158,9 @@ function calculate() {
             type: "POST",
             url: "Home/Calculate",
             data: {
-                hours: "blablabla"
+                hours: "12:00+17:00;9:00+18:00",
+                wage: "200",
+                tax: 35
             },
             success: function (data) {
                 console.log(data);

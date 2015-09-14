@@ -193,15 +193,15 @@ function displayResults(data) {
     console.log(data);
     var hours = 0;
     var mins = 0;
-    var split = data.totalHours.split(':');
+    var split = data.totalHoursTime.split(':');
     if (split.length = 2) {
         hours = split[0];
         mins = split[1];
     }
     var hoursAndMinutes = hours + " hours, "+mins+" minutes";
-    var hoursOnly = "G.ØØ hours";
-    var beforeTax = data.incomeBeforeTax;
-    var afterTax = data.incomeAfterTax;
+    var hoursOnly = data.totalHoursDouble.toFixed(2) + " hours";
+    var beforeTax = parseFloat(data.incomeBeforeTax).toFixed(2);
+    var afterTax = parseFloat(data.incomeAfterTax).toFixed(2);
 
     $('.hours-and-minutes').text(hoursAndMinutes);
     $('.hours-only').text(hoursOnly);

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -31,8 +33,15 @@ namespace WageCalculation.Controllers
             //calculations
 
             //new json string totalHours: xxxx incomeBeforeTax: xxxx IncomeAfterTax: xxxx
-            string json = "totalHours:" + model.totalHours(hours) + "incomeBeforeTax:" + model.incomeBeforeTax(wage, hours) + "incomeAfterTax:" + model.incomeAfterTax(wage, hours, tax);
-            return Json(json, JsonRequestBehavior.AllowGet);
+            var result = new JObject();
+
+            result["totalHours"] = model.totalHours(hours);
+            result["incomeBeforeTax"] = model.incomeBeforeTax(wage, hours);
+            result["incomeAfterTax"] = model.incomeAfterTax(wage, hours, tax);
+
+            var serialized = JsonConvert.SerializeObject(result);
+
+            return Json(serialized, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult About()

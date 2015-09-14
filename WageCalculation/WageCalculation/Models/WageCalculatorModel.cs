@@ -30,7 +30,8 @@ namespace WageCalculation.Models
             }
 
             taxPercent = double.Parse(tax) / 100;
-            income = (double.Parse(wage) * parseIntoDouble(time));
+            var totalTime = totalHours(time);
+            income = (double.Parse(wage) * parseIntoDouble(totalTime));
             income-= income * taxPercent;
             
             return "" + income;
@@ -46,8 +47,9 @@ namespace WageCalculation.Models
             {
                 wage = wage.Replace(',', '.');
             }
-
-            income = double.Parse(wage) * parseIntoDouble(time);
+            var totalTime = totalHours(time);
+        
+            income = double.Parse(wage) * parseIntoDouble(totalTime);
             
             return "" + income;
         }

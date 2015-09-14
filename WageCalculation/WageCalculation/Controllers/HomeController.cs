@@ -25,24 +25,30 @@ namespace WageCalculation.Controllers
         [HttpPost]
         public JsonResult Calculate()
         {
+           
             WageCalculatorModel model = new WageCalculatorModel();
             string hours = HttpContext.Request["hours"];
             string wage = HttpContext.Request["wage"];
             string tax = HttpContext.Request["tax"];
-            //string json = "{hours: "+hours+"}";
-            //calculations
 
-            //new json string totalHours: xxxx incomeBeforeTax: xxxx IncomeAfterTax: xxxx
-            var result = new JObject();
+            if (model.validation(hours, wage, tax))
+            {
+                //string json = "{hours: "+hours+"}";
+                //calculations
 
-            result["totalHoursTime"] = model.totalHours(hours);
-            result["totalHoursDouble"] = model.parseIntoDouble(model.totalHours(hours));
-            result["incomeBeforeTax"] = model.incomeBeforeTax(wage, hours);
-            result["incomeAfterTax"] = model.incomeAfterTax(wage, hours, tax);
+                //new json string totalHours: xxxx incomeBeforeTax: xxxx IncomeAfterTax: xxxx
+                var result = new JObject();
 
-            var serialized = JsonConvert.SerializeObject(result);
+                result["totalHoursTime"] = model.totalHours(hours);
+                result["totalHoursDouble"] = model.parseIntoDouble(model.totalHours(hours));
+                result["incomeBeforeTax"] = model.incomeBeforeTax(wage, hours);
+                result["incomeAfterTax"] = model.incomeAfterTax(wage, hours, tax);
 
-            return Json(serialized, JsonRequestBehavior.AllowGet);
+                var serialized = JsonConvert.SerializeObject(result);
+
+                return Json(serialized, JsonRequestBehavior.AllowGet);
+            }
+            else return Json(JsonConvert.SerializeObject("Bad input"), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult About()

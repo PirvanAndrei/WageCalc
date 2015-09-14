@@ -29,7 +29,7 @@ namespace WageCalculation.Tests.Models
             WageCalculatorModel model = new WageCalculatorModel();
 
             // Act
-            String time = "10:30";
+            String time = "9:00+12:00;8:30+16:00";
             String wage = "100";
 
             // Assert
@@ -44,7 +44,7 @@ namespace WageCalculation.Tests.Models
             WageCalculatorModel model = new WageCalculatorModel();
 
             // Act
-            String time = "10:30";
+            String time = "8:30+19:00";
             String wage = "120";
 
             // Assert
@@ -59,7 +59,7 @@ namespace WageCalculation.Tests.Models
             WageCalculatorModel model = new WageCalculatorModel();
 
             // Act
-            String time = "10:30";
+            String time = "9:00+12:00;8:30+16:00";
             String wage = "100";
             String tax = "50";
 
@@ -75,7 +75,7 @@ namespace WageCalculation.Tests.Models
             WageCalculatorModel model = new WageCalculatorModel();
 
             // Act
-            String time = "10:30";
+            String time = "8:30+19:00";
             String wage = "100,00";
             String tax = "50.00";
 
@@ -91,7 +91,7 @@ namespace WageCalculation.Tests.Models
             WageCalculatorModel model = new WageCalculatorModel();
 
             // Act
-            String time = "10:30";
+            String time = "8:30+19:00";
             String wage = "100";
             String tax = "50,00";
 
@@ -107,7 +107,7 @@ namespace WageCalculation.Tests.Models
             WageCalculatorModel model = new WageCalculatorModel();
 
             // Act
-            String time = "10:30";
+            String time = "8:30+19:00";
             String wage = "100";
             String tax = "40";
 

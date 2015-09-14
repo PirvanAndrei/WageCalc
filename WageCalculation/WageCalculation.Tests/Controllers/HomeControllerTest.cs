@@ -27,15 +27,16 @@ namespace WageCalculation.Tests.Controllers
             
             var result = new JObject();
 
-            result["totalHours"] = model.totalHours("9:00+12:00;8:30+16:00");
-            result["incomeBeforeTax"] = model.incomeBeforeTax("100", "10:30");
-            result["incomeAfterTax"] = model.incomeAfterTax("100", "10:30", "50");
+            result["totalHoursTime"] = model.totalHours("9:00+12:00;8:30+16:00");
+            result["totalHoursDouble"] = model.parseIntoDouble(model.totalHours("9:00+12:00;8:30+16:00"));
+            result["incomeBeforeTax"] = model.incomeBeforeTax("100", "9:00+12:00;8:30+16:00");
+            result["incomeAfterTax"] = model.incomeAfterTax("100", "9:00+12:00;8:30+16:00", "50");
 
             var serialized = JsonConvert.SerializeObject(result);
 
             // Assert
 
-            Assert.AreEqual(serialized, "{\"totalHours\":\"10:30\",\"incomeBeforeTax\":\"1050\",\"incomeAfterTax\":\"525\"}");
+            Assert.AreEqual(serialized, "{\"totalHoursTime\":\"10:30\",\"totalHoursDouble\":10.5,\"incomeBeforeTax\":\"1050\",\"incomeAfterTax\":\"525\"}");
 
         }
 

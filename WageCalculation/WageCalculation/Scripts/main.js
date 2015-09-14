@@ -145,11 +145,13 @@ function initResults() {
     var hoursTotalHtml = '<h2 class="hours-total">Hours total: <span class="hours-and-minutes">x hours, y minutes</span> (<span class="hours-only">x,z hours</span>)</h2>';
     var beforeTaxHtml = '<h2 class="income-before">Income before tax: <span class="income-number">xx.yyy</span></h2>'
     var afterTaxHtml = '<h2 class="income-after">Income after tax: <span class="income-number">xx.yyy</span></h2>';
+    result_container.hide();
     result_container.html(validationHtml + hoursTotalHtml + beforeTaxHtml + afterTaxHtml);
 }
 
 function calculate() {
     console.log("calc");
+    displayResults(null);
     var valid = validateInputs();
     if (valid) {
 
@@ -181,10 +183,25 @@ function calculate() {
             },
             success: function (data) {
                 console.log(data);
+                displayResults(data);
             },
             dataType: "json"
         });
     }
+}
+
+function displayResults(data) {
+    var hoursAndMinutes = "XÆ hours, ÅW minutes";
+    var hoursOnly = "G.ØØ hours";
+    var beforeTax = "20X0.0";
+    var afterTax = "12X5.0";
+
+    $('.hours-and-minutes').text(hoursAndMinutes);
+    $('.hours-only').text(hoursOnly);
+    $('.income-before .income-number').text(beforeTax);
+    $('.income-after .income-number').text(afterTax);
+
+    result_container.slideDown("medium");
 }
 
 function validateInputs() {

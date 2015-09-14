@@ -151,7 +151,6 @@ function initResults() {
 
 function calculate() {
     console.log("calc");
-    displayResults(null);
     var valid = validateInputs();
     if (valid) {
 
@@ -182,26 +181,34 @@ function calculate() {
                 tax: tax
             },
             success: function (data) {
-                console.log(data);
-                displayResults(data);
+                displayResults(JSON.parse(data));
             },
-            dataType: "json"
+            dataType: "json",
+            //contentType: "application/json"
         });
     }
 }
 
 function displayResults(data) {
-    var hoursAndMinutes = "XÆ hours, ÅW minutes";
+    console.log(data);
+    var hours = 0;
+    var mins = 0;
+    var split = data.totalHours.split(':');
+    if (split.length = 2) {
+        hours = split[0];
+        mins = split[1];
+    }
+    var hoursAndMinutes = hours + " hours, "+mins+" minutes";
     var hoursOnly = "G.ØØ hours";
-    var beforeTax = "20X0.0";
-    var afterTax = "12X5.0";
+    var beforeTax = data.incomeBeforeTax;
+    var afterTax = data.incomeAfterTax;
 
     $('.hours-and-minutes').text(hoursAndMinutes);
     $('.hours-only').text(hoursOnly);
     $('.income-before .income-number').text(beforeTax);
     $('.income-after .income-number').text(afterTax);
 
-    result_container.slideDown("medium");
+    result_container.slideDown("slow");
 }
 
 function validateInputs() {

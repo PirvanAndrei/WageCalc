@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using WageCalculation.Models;
 namespace WageCalculation.Controllers
 {
     public class HomeController : Controller
@@ -23,9 +23,15 @@ namespace WageCalculation.Controllers
         [HttpPost]
         public JsonResult Calculate()
         {
-
+            WageCalculatorModel model = new WageCalculatorModel();
             string hours = HttpContext.Request["hours"];
-            string json = "{hours: "+hours+"}";
+            string wage = HttpContext.Request["wage"];
+            string tax = HttpContext.Request["tax"];
+            //string json = "{hours: "+hours+"}";
+            //calculations
+
+            //new json string totalHours: xxxx incomeBeforeTax: xxxx IncomeAfterTax: xxxx
+            string json = "totalHours:" + model.totalHours(hours) + "incomeBeforeTax:" + model.incomeBeforeTax(wage, hours) + "incomeAfterTax:" + model.incomeAfterTax(wage, hours, tax);
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 

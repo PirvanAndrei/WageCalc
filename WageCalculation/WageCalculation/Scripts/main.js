@@ -151,7 +151,7 @@ function initResults() {
 function calculate() {
     console.log("calc");
     var valid = validateInputs();
-    if (!valid) {
+    if (valid) {
         // Send parameters with AJAX to server
         console.log("about to send ajax");
         $.ajax({
@@ -172,6 +172,7 @@ function calculate() {
 
 function validateInputs() {
     var timeInputs = $(table).find('.time-input');
+    var noErrorsYet = true;
 
     timeInputs.each(function (index, inputField) {
         var time = $(inputField).val();
@@ -182,6 +183,7 @@ function validateInputs() {
         } else {
             formGrp.addClass('has-error');
             formGrp.removeClass('has-success');
+            noErrorsYet = false;
         }
         
     });
@@ -195,6 +197,7 @@ function validateInputs() {
     } else {
         wageFormGrp.addClass('has-error');
         wageFormGrp.removeClass('has-success');
+        noErrorsYet = false;
     }
 
     var taxInput = $('#tax');
@@ -206,7 +209,11 @@ function validateInputs() {
     } else {
         taxFormGrp.addClass('has-error');
         taxFormGrp.removeClass('has-success');
+        noErrorsYet = false;
     }
+
+
+    return noErrorsYet;
 }
 
 function validateTime(time) {

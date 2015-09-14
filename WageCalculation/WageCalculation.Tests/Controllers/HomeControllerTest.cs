@@ -6,12 +6,40 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WageCalculation;
 using WageCalculation.Controllers;
+using WageCalculation.Models;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace WageCalculation.Tests.Controllers
 {
     [TestClass]
     public class HomeControllerTest
     {
+        [TestMethod]
+        public void Calculate()
+        {
+            // Arrange
+            HomeController controller = new HomeController();
+
+            // Act
+
+            WageCalculatorModel model = new WageCalculatorModel();
+            
+            var result = new JObject();
+
+            result["totalHours"] = model.totalHours("9:00+12:00;8:30+16:00");
+            result["incomeBeforeTax"] = model.incomeBeforeTax("100", "10:30");
+            result["incomeAfterTax"] = model.incomeAfterTax("100", "10:30", "50");
+
+            var serialized = JsonConvert.SerializeObject(result);
+
+            // Assert
+
+            Assert.AreEqual(serialized, "{\"totalHours\":\"10:30\",\"incomeBeforeTax\":\"1050\",\"incomeAfterTax\":\"525\"}");
+
+        }
+
+
         [TestMethod]
         public void Index()
         {

@@ -23,14 +23,14 @@ namespace WageCalculation.Models
             var Days = time.Split(';');
             string endTime;
 
-           
+
 
             foreach (string day in Days)
             {
-                if (int.Parse(day.Split(':')[0]) < 0 || int.Parse(day.Split(':')[0]) > 23) return false; // stat hour bigger than 0 and lower than 24
+                if (int.Parse(day.Split(':')[0]) < 0 || int.Parse(day.Split(':')[0]) > 23) return false; // start hour bigger than 0 and lower than 24
                 endTime = day.Split('+')[1];
                 if (int.Parse(endTime.Split(':')[0]) < 0 || int.Parse(endTime.Split(':')[0]) > 23) return false; // end hour bigger than 0 and lower than 24
-                if (int.Parse(dayHours(day).Split(':')[0]) < 0) return false; // the difference is positive 
+                //if (int.Parse(dayHours(day).Split(':')[0]) < 0) return false; // the difference is positive 
             }
 
             if (int.Parse(wage) < 0 || int.Parse(wage) > 500) return false;
@@ -125,14 +125,19 @@ namespace WageCalculation.Models
         public String dayHours(String day)
         {
             var Day = day.Split('+');
-            var startHour = Day[0].Split(':')[0];//9
+            var startHour = int.Parse(Day[0].Split(':')[0]);//9
             var startMinute = Day[0].Split(':')[1];//02
 
-            var endHour = Day[1].Split(':')[0];//12
+            var endHour = int.Parse(Day[1].Split(':')[0]);//12
             var endMinute = Day[1].Split(':')[1];//00
 
 
-            var totalHours = int.Parse(endHour) - int.Parse(startHour);
+            if (endHour < startHour)
+            {
+                endHour = endHour + 24;
+            }
+
+            var totalHours = endHour - startHour;
             var totalMinutes = int.Parse(endMinute) - int.Parse(startMinute);
 
             if (totalMinutes < 0)
